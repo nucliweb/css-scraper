@@ -25,7 +25,10 @@ const css = css_sources.map((css_source) => css.source.css).join('\n')
 
 - Scrape every stylesheet the page declares, regardless of whether its conditions currently apply. A `<link href="dark.css" rel="stylesheet" media="(prefers-color-scheme: dark)">` is scraped even when the user prefers a light color scheme, because the browser downloads it anyway and the page's full CSS is what we want.
 - Treat `@import` the same as linked style sheets, including import conditions like `@import url(modern.css) supports(display: grid);`. Every import is scraped regardless of its conditions.
-- Get the CSS as close as possible to how it was shipped, bundled or authored. Prefer the network response body and `<style>` text over anything read back from the browser. Avoid transformations done by the browser, like unminification or color normalization (browser converts hex to rgb, etc.), which is why `document.stylesheets` is not used as a source. Where no shipped text exists (rules added with `insertRule()`, constructed stylesheets adopted into a document or shadow root), the browser-serialized CSS is the only option and is marked as such in the source `type`.
+- Get the CSS as close as possible to how it was shipped, bundled or authored.
+  - Prefer the network response body and `<style>` text over anything read back from the browser.
+  - Avoid transformations done by the browser, like unminification or color normalization (browser converts hex to rgb, etc.), which is why `document.stylesheets` is not used as a source.
+  - Where no shipped text exists (rules added with `insertRule()`, constructed stylesheets adopted into a document or shadow root), the browser-serialized CSS is the only option and is marked as such in the source `type`.
 
 ## CSS Sources
 
